@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album index{% endblock %}
+
+{% block body %}
+    <h1>Album index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Genre</th>
+                <th>Release_date</th>
+                <th>Rating_count</th>
+                <th>Average_rating</th>
+                <th>Review_count</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for album in albums %}
+            <tr>
+                <td>{{ album.id }}</td>
+                <td>{{ album.title }}</td>
+                <td>{{ album.artist }}</td>
+                <td>{{ album.genre }}</td>
+                <td>{{ album.releaseDate ? album.releaseDate|date('Y-m-d') : '' }}</td>
+                <td>{{ album.ratingCount }}</td>
+                <td>{{ album.averageRating }}</td>
+                <td>{{ album.reviewCount }}</td>
+                <td>
+                    <a href="{{ path('app_album_show', {'id': album.id}) }}">show</a>
+                    <a href="{{ path('app_album_edit', {'id': album.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_album_new') }}">Create new</a>
+{% endblock %}
